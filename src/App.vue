@@ -5,8 +5,16 @@ import NavBar from "./components/NavBar.vue";
 
 <template>
   <NavBar></NavBar>
-  <RouterView></RouterView>
+  <main class="main" >
+    <RouterView ></RouterView>
+  </main>
+  <div id="input"></div>
   <Tabbar></Tabbar>
 </template>
 
-<style scoped></style>
+<style scoped>
+.main{
+  flex: 1;
+}
+
+</style>

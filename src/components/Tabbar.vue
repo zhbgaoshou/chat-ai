@@ -6,7 +6,7 @@ const active = ref("chat");
 </script>
 
 <template>
-  <van-tabbar v-model="active" route :border="false">
+  <van-tabbar v-model="active" route :border="false" :placeholder="true">
     <van-tabbar-item
       v-for="nav in navRoutes"
       :to="nav.path"
