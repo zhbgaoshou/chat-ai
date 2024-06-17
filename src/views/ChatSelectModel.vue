@@ -1,49 +1,64 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from "vue";
 
-const offset = ref({ x: -1, y: window.innerHeight - 300 })
+import bus from "@/bus";
+import config from "@/config";
 
-let show = ref(false)
+/** 悬浮气泡 */
+const offset = ref({ x: -1, y: window.innerHeight - 300 });
+
+/** 弹出框 */
+let show = ref(false);
 function onClick() {
-    show.value = true
+  show.value = true;
 }
 
-const selectValue = ref(['2'])
+/** 模型选择 */
+const selectValue = ref([config.defaultMode]);
 const columns = [
-    { text: 'ChatGPT 4', value: '0' },
-    { text: 'ChatGPT 4o', value: '1' },
-    { text: 'ChatGPT 3.5', value: '2' },
+  { text: "ChatGPT 4", value: "ChatGPT 4" },
+  { text: "ChatGPT 4o", value: "ChatGPT 4o" },
+  { text: "ChatGPT 3.5", value: "ChatGPT 3.5" },
 ];
-const onConfirm = ({ selectedValues }) => {
-    showToast(`当前值: ${selectedValues.join(',')}`);
-};
-const onChange = ({ selectedValues }) => {
-    showToast(`当前值: ${selectedValues.join(',')}`);
-};
-const onCancel = () => showToast('取消');
 
+const onCancel = () => (show.value = false);
+
+/**通信数据 */
+watch(selectValue, (newSelectValue) => {
+  bus.emit("setModeValue", newSelectValue[0]);
+});
 </script>
 
 <template>
+  <van-floating-bubble
+    v-model:offset="offset"
+    axis="y"
+    icon="chat"
+    @click="onClick"
+  >
+    <div class="folating">
+      <van-icon name="chat-o" size="16" />
+      <span>模型</span>
+    </div>
+  </van-floating-bubble>
 
-    <van-floating-bubble v-model:offset="offset" axis="y" icon="chat" @click="onClick">
-        <div class="folating" >
-            <van-icon name="chat-o" size="16" />
-            <span>模型</span>
-        </div>
-    </van-floating-bubble>
-
-    <van-popup v-model:show="show" round position="bottom">
-        <van-picker v-model="selectValue" title="选择模型" :columns="columns" @confirm="onConfirm" @cancel="onCancel"
-            @change="onChange" />
-    </van-popup>
+  <van-popup v-model:show="show" round position="bottom">
+    <van-picker
+      v-model="selectValue"
+      cancel-button-text=" "
+      title="选择模型"
+      :columns="columns"
+      :swipe-duration="300"
+      @confirm="onCancel"
+    />
+  </van-popup>
 </template>
 
 <style scoped lang="scss">
 .folating {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 </style>

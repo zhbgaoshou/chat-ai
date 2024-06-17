@@ -1,23 +1,39 @@
 <script setup>
-import {useRoute} from 'vue-router'
+import { ref } from "vue";
 
-const route = useRoute()
-console.log(route);
+let show = ref(false);
+
+function onClicUser() {
+  show.value = true;
+}
 </script>
 
 <template>
-  <van-nav-bar :title="route.meta.title">
-
-    <template #right>
-      <!-- <van-icon name="user-o" size="24" color="#000" /> -->
-      <van-image
-        round
-        width="40"
-        height="40"
-        src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-      />
+  <van-nav-bar>
+    <template #left>
+      <div @click="onClicUser" class="user-info">
+        <!-- <van-icon name="user-o" size="24" color="#000" /> -->
+        <van-image
+          round
+          width="40"
+          height="40"
+          src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+        />
+      </div>
     </template>
   </van-nav-bar>
+  <van-popup
+    v-model:show="show"
+    position="left"
+    round
+    style="width: 60%; height: 100vh"
+    >内容</van-popup
+  >
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.user-info {
+  display: flex;
+  align-items: center;
+}
+</style>

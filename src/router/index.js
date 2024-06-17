@@ -8,6 +8,7 @@ export const navRoutes = [
     meta: {
       title: "聊天",
       icon: "comment-o",
+      keepAlive: true,
     },
   },
   {
@@ -17,6 +18,7 @@ export const navRoutes = [
     meta: {
       title: "模型",
       icon: "list-switching",
+      keepAlive: true,
     },
   },
 ];
