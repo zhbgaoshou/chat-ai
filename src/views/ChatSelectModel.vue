@@ -20,7 +20,6 @@ const columns = [
   { text: "ChatGPT 4o", value: "ChatGPT 4o" },
   { text: "ChatGPT 3.5", value: "ChatGPT 3.5" },
 ];
-
 const onCancel = () => (show.value = false);
 
 /**通信数据 */

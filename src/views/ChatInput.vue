@@ -5,9 +5,6 @@ import config from "@/config";
 
 const value = ref("");
 let mode = ref(config.defaultMode);
-bus.on("setModeValue", function (value) {
-  mode.value = value;
-});
 
 const fileIconArray = computed(() => {
   const array = ["photo", "description"];
@@ -17,6 +14,12 @@ const fileIconArray = computed(() => {
   return array;
 });
 
+/** 通信 */
+bus.on("setModeValue", function (value) {
+  mode.value = value;
+});
+
+/** 解绑事件 */
 onUnmounted(() => {
   bus.off("setModeValue");
 });
@@ -24,6 +27,7 @@ onUnmounted(() => {
 
 <template>
   <div class="input">
+    <!-- 文件选择 -->
     <div class="select-file">
       <van-icon
         :name="icon"

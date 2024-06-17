@@ -1,15 +1,20 @@
 <script setup>
+import { ref, onUnmounted } from "vue";
+
 import ChatSelectModel from "./ChatSelectModel.vue";
 import ChatNavBar from "./ChatNavBar.vue";
 import bus from "@/bus";
-import { ref } from "vue";
 import config from "@/config";
 
+/** 模型 */
 let mode = ref(config.defaultMode);
-console.log(bus);
 bus.on("setModeValue", function (value) {
-  console.log(value);
   mode.value = value;
+});
+
+/** 解绑 */
+onUnmounted(() => {
+  bus.off("setModeValue");
 });
 </script>
 
