@@ -5,19 +5,11 @@ import NavBar from "./components/NavBar.vue";
 
 <template>
   <NavBar></NavBar>
-  <main class="main">
-    <router-view v-slot="{ Component }">
-      <keep-alive>
-        <component :is="Component" />
-      </keep-alive>
-    </router-view>
-  </main>
-  <div id="input"></div>
+  <router-view v-slot="{ Component }">
+    <keep-alive>
+      <component :is="Component" />
+    </keep-alive>
+  </router-view>
   <Tabbar></Tabbar>
 </template>
 
-<style scoped>
-.main {
-  flex: 1;
-}
-</style>

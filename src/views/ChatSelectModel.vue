@@ -32,6 +32,7 @@ watch(selectValue, (newSelectValue) => {
   <van-floating-bubble
     v-model:offset="offset"
     axis="y"
+    :gap="10"
     icon="chat"
     @click="onClick"
   >

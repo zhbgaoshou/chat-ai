@@ -55,6 +55,8 @@ onUnmounted(() => {
 
 <style scoped lang="scss">
 .input {
+  background-color: #fff;
+  width: 100%;
   height: 50px;
   display: flex;
   justify-content: space-between;

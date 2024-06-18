@@ -1,16 +1,32 @@
 <script setup>
-import config from "../config";
+
+
 </script>
 
 <template>
   <div class="chat-content">
-    <ChatFrameAI :image="config.defaultAiFaceImage"></ChatFrameAI>
+    <ChatFrame role="assistant"></ChatFrame>
+    <ChatFrame role="user"></ChatFrame>
+    <ChatFrame role="assistant"></ChatFrame>
+    <ChatFrame role="user"></ChatFrame>
+    <ChatFrame role="assistant"></ChatFrame>
+    <ChatFrame role="user"></ChatFrame>
+    <ChatFrame role="assistant"></ChatFrame>
+    <ChatFrame role="user"></ChatFrame>
+    <ChatFrame role="assistant"></ChatFrame>
+    <ChatFrame role="user"></ChatFrame>
+    <ChatFrame role="assistant"></ChatFrame>
+    <ChatFrame role="user"></ChatFrame>
+    <ChatFrame role="assistant"></ChatFrame>
+    <ChatFrame role="user"></ChatFrame>
+    <ChatFrame role="assistant"></ChatFrame>
+    <ChatFrame role="user"></ChatFrame>
   </div>
 </template>
 
 <style scoped lang="scss">
 .chat-content {
-  height: 100%;
+  overflow-y: scroll;
   padding: 10px;
   font-size: 14px;
 }

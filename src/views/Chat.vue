@@ -21,33 +21,34 @@ onUnmounted(() => {
 
 <template>
   <div class="chat">
+    <van-tag class="tag" plain>当前模型：{{ mode || "未选择" }}</van-tag>
     <ChatNavBar></ChatNavBar>
+
     <!-- start -->
-    <div class="chat">
-      <van-tag class="tag" plain>当前模型：{{ mode || "未选择" }}</van-tag>
-      <ChatContent></ChatContent>
-      <!-- end -->
-    </div>
+    <ChatContent></ChatContent>
+
     <ChatInput></ChatInput>
+    <!-- end -->
   </div>
   <ChatSelectModel></ChatSelectModel>
 </template>
 
 <style scoped lang="scss">
 .chat {
+  flex: 1;
+  min-height: 0;
+  position: relative;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  justify-content: space-between;
 
-  .chat {
-    position: relative;
-    flex: 1;
-
-    .tag {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-    }
+  .tag {
+    position: absolute;
+    background-color: rgba(225, 225, 225, 0.2);
+    right: 10px;
+    top: 56px;
+    z-index: 99
   }
+
 }
 </style>
