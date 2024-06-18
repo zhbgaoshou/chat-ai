@@ -15,8 +15,8 @@ function onClicUser() {
         <!-- <van-icon name="user-o" size="24" color="#000" /> -->
         <van-image
           round
-          width="40"
-          height="40"
+          width="30"
+          height="30"
           src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
         />
       </div>

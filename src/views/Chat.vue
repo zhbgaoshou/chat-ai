@@ -3,6 +3,7 @@ import { ref, onUnmounted } from "vue";
 
 import ChatSelectModel from "./ChatSelectModel.vue";
 import ChatNavBar from "./ChatNavBar.vue";
+import ChatContent from "./ChatContent.vue";
 import bus from "@/bus";
 import config from "@/config";
 
@@ -19,20 +20,21 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="chat-input">
+  <div class="chat">
     <ChatNavBar></ChatNavBar>
+    <!-- start -->
     <div class="chat">
-      <van-tag class="tag" plain round
-        >当前模型：{{ mode || "未选择" }}</van-tag
-      >
+      <van-tag class="tag" plain>当前模型：{{ mode || "未选择" }}</van-tag>
+      <ChatContent></ChatContent>
+      <!-- end -->
     </div>
-    <ChatInput> </ChatInput>
+    <ChatInput></ChatInput>
   </div>
   <ChatSelectModel></ChatSelectModel>
 </template>
 
 <style scoped lang="scss">
-.chat-input {
+.chat {
   display: flex;
   flex-direction: column;
   height: 100%;
