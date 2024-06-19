@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onUnmounted } from "vue";
+import { ref, onUnmounted,onMounted } from "vue";
 
 import ChatSelectModel from "./ChatSelectModel.vue";
 import ChatNavBar from "./ChatNavBar.vue";
@@ -13,6 +13,9 @@ bus.on("setModeValue", function (value) {
   mode.value = value;
 });
 
+const selectModelDOM = ref(null)
+
+
 /** 解绑 */
 onUnmounted(() => {
   bus.off("setModeValue");
@@ -21,7 +24,7 @@ onUnmounted(() => {
 
 <template>
   <div class="chat">
-    <van-tag class="tag" plain>当前模型：{{ mode || "未选择" }}</van-tag>
+    <van-tag class="tag" plain @click="selectModelDOM.onClick()">选择模型：{{ mode || "未选择" }}</van-tag>
     <ChatNavBar></ChatNavBar>
 
     <!-- start -->
@@ -30,7 +33,7 @@ onUnmounted(() => {
     <ChatInput></ChatInput>
     <!-- end -->
   </div>
-  <ChatSelectModel></ChatSelectModel>
+  <ChatSelectModel ref="selectModelDOM"></ChatSelectModel>
 </template>
 
 <style scoped lang="scss">
