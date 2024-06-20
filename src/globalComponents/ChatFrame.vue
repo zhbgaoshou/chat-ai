@@ -3,38 +3,50 @@ import { computed } from "vue";
 
 import config from "../config";
 
+const props = defineProps(["role", "source", "time"]);
 
-const props = defineProps(['role','source']);
-
+const isUser = computed(() => props.role === "user");
 const position = computed(() => {
-  return props.role === 'user' ? 'flex-end' : 'flex-start'
-})
-
+  return isUser.value ? "flex-end" : "flex-start";
+});
 const image = computed(() => {
-  return props.role === 'assistant' ? config.defaultAiFaceImage : config.defaultUserFaceImage
-
-})
+  return isUser.value ? config.defaultUserFaceImage : config.defaultAiFaceImage;
+});
 </script>
 
 <template>
-  <div>
-    <div style="display: flex;margin-bottom: 3px;width: 100%;" :style="{ 'justify-content': position }">
-      <van-image style="border: 2px solid #000" round fit="cover" width="40px" height="40px" :src="image" />
-    </div>
-    <div class="content">
-      <van-loading size="24px" vertical v-if="false">加载中...</van-loading>
-      <div v-html="props.source || '无内容'"></div>
-    </div>
+  <div class="top" :style="{ 'justify-content': position }">
+    <span v-if="isUser" class="txt-time">{{ props.time }}</span>
+    <van-image round fit="cover" width="40px" height="40px" :src="image" />
+    <span v-if="!isUser" class="txt-time">{{ props.time }}</span>
+  </div>
+  <div class="content">
+    <van-loading size="24px" vertical v-if="false">加载中...</van-loading>
+
+    <v-md-preview :text="props.source || '无内容'"></v-md-preview>
   </div>
 </template>
 
 <style scoped lang="scss">
+.top {
+  display: flex;
+  margin-bottom: 3px;
+  width: 100%;
+
+  .txt-time {
+    color: #c8c9cc;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin: 0 5px;
+  }
+}
 .content {
   width: 100%;
-  padding: 20px;
+  padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #e8e7e7;
   border-radius: 10px;
-  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
 }
 </style>

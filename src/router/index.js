@@ -28,6 +28,14 @@ const routes = [
     path: "/",
     redirect: "/chat",
   },
+  {
+    path: "/user",
+    name: "user",
+    component: () => import("@/views/User.vue"),
+    meta: {
+      title: "用户",
+    },
+  },
   ...navRoutes,
 ];
 

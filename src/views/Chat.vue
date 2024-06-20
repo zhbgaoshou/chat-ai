@@ -1,40 +1,54 @@
 <script setup>
-import { ref, onUnmounted, onMounted } from "vue";
+import { ref, reactive } from "vue";
 
 import ChatSelectModel from "./ChatSelectModel.vue";
 import ChatNavBar from "./ChatNavBar.vue";
 import ChatContent from "./ChatContent.vue";
-import bus from "@/bus";
 import config from "@/config";
 
+const params = reactive({
+  role: "user",
+  content: "",
+  model: config.defaultMode,
+});
+
 /** 模型 */
-let mode = ref(config.defaultMode);
-bus.on("setModeValue", function (value) {
-  mode.value = value;
-});
+let showSelectorMode = ref(false);
+function getMode(modeValue) {
+  params.model = modeValue;
+}
 
-const selectModelDOM = ref(null);
+/** 发送 */
+function send(sendValue) {
+  params.content = sendValue;
 
-/** 解绑 */
-onUnmounted(() => {
-  bus.off("setModeValue");
-});
+  console.log(params);
+}
 </script>
 
 <template>
   <div class="chat">
-    <van-tag class="tag" plain @click="selectModelDOM.onClick()"
-      >选择模型：{{ mode || "未选择" }}</van-tag
+    <van-tag
+      class="tag"
+      size="large"
+      plain
+      color="#1989FA"
+      round
+      @click="showSelectorMode = true"
+      >选择模型：{{ params.model || "未选择" }}</van-tag
     >
     <ChatNavBar></ChatNavBar>
 
     <!-- start -->
     <ChatContent></ChatContent>
 
-    <ChatInput @on-send="sendHandle"></ChatInput>
+    <ChatInput @on-send="send" v-model="params.model"></ChatInput>
     <!-- end -->
   </div>
-  <ChatSelectModel ref="selectModelDOM"></ChatSelectModel>
+  <ChatSelectModel
+    @get-mode="getMode"
+    v-model:showSelectorMode="showSelectorMode"
+  ></ChatSelectModel>
 </template>
 
 <style scoped lang="scss">

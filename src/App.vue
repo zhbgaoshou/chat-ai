@@ -12,4 +12,3 @@ import NavBar from "./components/NavBar.vue";
   </router-view>
   <Tabbar></Tabbar>
 </template>
-

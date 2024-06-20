@@ -1,11 +1,16 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+
+const source = ref("13");
+</script>
 
 <template>
   <div class="chat-content">
-    <ChatFrame role="assistant"></ChatFrame>
-    <ChatFrame role="user" source="op"></ChatFrame>
-    <ChatFrame role="assistant"></ChatFrame>
-    <ChatFrame role="user"></ChatFrame>
+    <ChatFrame
+      role="assistant"
+      :time="new Date().toLocaleString()"
+      :source="source"
+    ></ChatFrame>
   </div>
 </template>
 
