@@ -4,8 +4,6 @@ import { ref, watch } from "vue";
 import bus from "@/bus";
 import config from "@/config";
 
-/** 悬浮气泡 */
-const offset = ref({ x: -1, y: window.innerHeight - 300 });
 
 /** 弹出框 */
 let show = ref(false);
@@ -26,22 +24,14 @@ const onCancel = () => (show.value = false);
 watch(selectValue, (newSelectValue) => {
   bus.emit("setModeValue", newSelectValue[0]);
 });
+
+
+defineExpose({
+  onClick
+})
 </script>
 
 <template>
-  <van-floating-bubble
-    v-model:offset="offset"
-    axis="y"
-    :gap="10"
-    icon="chat"
-    @click="onClick"
-  >
-    <div class="folating">
-      <van-icon name="chat-o" size="16" />
-      <span>模型</span>
-    </div>
-  </van-floating-bubble>
-
   <van-popup v-model:show="show" round position="bottom">
     <van-picker
       v-model="selectValue"

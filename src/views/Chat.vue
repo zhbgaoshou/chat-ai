@@ -1,12 +1,11 @@
 <script setup>
-import { ref, onUnmounted } from "vue";
+import { ref, onUnmounted, onMounted } from "vue";
 
 import ChatSelectModel from "./ChatSelectModel.vue";
 import ChatNavBar from "./ChatNavBar.vue";
 import ChatContent from "./ChatContent.vue";
 import bus from "@/bus";
 import config from "@/config";
-import { chat3 } from "@/api/chat";
 
 /** 模型 */
 let mode = ref(config.defaultMode);
@@ -14,22 +13,7 @@ bus.on("setModeValue", function (value) {
   mode.value = value;
 });
 
-/** send 回调 */
-function sendHandle(value) {
-  const eventSource = new EventSource(chat3);
-
-  eventSource.onmessage = (event) => {
-    console.log(event.data);
-    if (event.data === "None") {
-      eventSource.close();
-    }
-  };
-
-  eventSource.onerror = (error) => {
-    console.log(`error:`, error);
-    eventSource.close();
-  };
-}
+const selectModelDOM = ref(null);
 
 /** 解绑 */
 onUnmounted(() => {
@@ -39,7 +23,9 @@ onUnmounted(() => {
 
 <template>
   <div class="chat">
-    <van-tag class="tag" plain>当前模型：{{ mode || "未选择" }}</van-tag>
+    <van-tag class="tag" plain @click="selectModelDOM.onClick()"
+      >选择模型：{{ mode || "未选择" }}</van-tag
+    >
     <ChatNavBar></ChatNavBar>
 
     <!-- start -->
@@ -48,7 +34,7 @@ onUnmounted(() => {
     <ChatInput @on-send="sendHandle"></ChatInput>
     <!-- end -->
   </div>
-  <ChatSelectModel></ChatSelectModel>
+  <ChatSelectModel ref="selectModelDOM"></ChatSelectModel>
 </template>
 
 <style scoped lang="scss">
