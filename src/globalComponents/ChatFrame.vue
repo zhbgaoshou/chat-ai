@@ -22,8 +22,7 @@ const image = computed(() => {
   </div>
   <div class="content">
     <van-loading size="24px" vertical v-if="false">加载中...</van-loading>
-
-    <v-md-preview :text="props.source || '无内容'"></v-md-preview>
+    
   </div>
 </template>
 
