@@ -3,6 +3,8 @@ import { ref, onUnmounted, computed } from "vue";
 import bus from "@/bus";
 import config from "@/config";
 
+const emit = defineEmits(["onSend"]);
+
 const value = ref("");
 let mode = ref(config.defaultMode);
 
@@ -18,6 +20,11 @@ const fileIconArray = computed(() => {
 bus.on("setModeValue", function (value) {
   mode.value = value;
 });
+
+function setSend() {
+  value.value && emit("onSend", value.value);
+  value.value = "";
+}
 
 /** 解绑事件 */
 onUnmounted(() => {
@@ -38,12 +45,13 @@ onUnmounted(() => {
     </div>
     <div class="in">
       <van-field
-        v-model="value"
+        @keyup.enter="setSend"
+        v-model.trim="value"
         placeholder="请输入..."
         style="border: 1px solid #dedee0; border-radius: 1000px"
       />
     </div>
-    <div class="send">
+    <div class="send" @click="setSend">
       <van-icon
         name="down"
         size="24"

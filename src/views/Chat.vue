@@ -6,12 +6,30 @@ import ChatNavBar from "./ChatNavBar.vue";
 import ChatContent from "./ChatContent.vue";
 import bus from "@/bus";
 import config from "@/config";
+import { chat3 } from "@/api/chat";
 
 /** 模型 */
 let mode = ref(config.defaultMode);
 bus.on("setModeValue", function (value) {
   mode.value = value;
 });
+
+/** send 回调 */
+function sendHandle(value) {
+  const eventSource = new EventSource(chat3);
+
+  eventSource.onmessage = (event) => {
+    console.log(event.data);
+    if (event.data === "None") {
+      eventSource.close();
+    }
+  };
+
+  eventSource.onerror = (error) => {
+    console.log(`error:`, error);
+    eventSource.close();
+  };
+}
 
 /** 解绑 */
 onUnmounted(() => {
@@ -27,7 +45,7 @@ onUnmounted(() => {
     <!-- start -->
     <ChatContent></ChatContent>
 
-    <ChatInput></ChatInput>
+    <ChatInput @on-send="sendHandle"></ChatInput>
     <!-- end -->
   </div>
   <ChatSelectModel></ChatSelectModel>
@@ -47,8 +65,7 @@ onUnmounted(() => {
     background-color: rgba(225, 225, 225, 0.2);
     right: 10px;
     top: 56px;
-    z-index: 99
+    z-index: 99;
   }
-
 }
 </style>

@@ -1,11 +1,8 @@
-<script setup>
-
-
-</script>
+<script setup></script>
 
 <template>
   <div class="chat-content">
-    <ChatFrame role="assistant"></ChatFrame>
+    <!-- <ChatFrame role="assistant"></ChatFrame>
     <ChatFrame role="user"></ChatFrame>
     <ChatFrame role="assistant"></ChatFrame>
     <ChatFrame role="user"></ChatFrame>
@@ -20,7 +17,7 @@
     <ChatFrame role="assistant"></ChatFrame>
     <ChatFrame role="user"></ChatFrame>
     <ChatFrame role="assistant"></ChatFrame>
-    <ChatFrame role="user"></ChatFrame>
+    <ChatFrame role="user"></ChatFrame> -->
   </div>
 </template>
 
