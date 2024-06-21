@@ -35,7 +35,7 @@ function send(sendValue) {
       color="#1989FA"
       round
       @click="showSelectorMode = true"
-      >选择模型：{{ params.model || "未选择" }}</van-tag
+      >{{ params.model || "未选择" }}</van-tag
     >
     <ChatNavBar></ChatNavBar>
 
@@ -63,8 +63,8 @@ function send(sendValue) {
   .tag {
     position: absolute;
     background-color: rgba(225, 225, 225, 0.2);
-    right: 10px;
-    top: 56px;
+    left: 10px;
+    bottom: 56px;
     z-index: 99;
   }
 }

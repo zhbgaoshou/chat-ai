@@ -2,6 +2,7 @@
 import { ref } from "vue";
 
 let show = ref(false);
+let offset = ref({ x: -1, y: innerHeight - 200 });
 
 function onClicUser() {
   show.value = true;
@@ -9,7 +10,7 @@ function onClicUser() {
 </script>
 
 <template>
-  <van-floating-bubble axis="y" :gap="10">
+  <van-floating-bubble v-model:offset="offset" axis="y" :gap="10">
     <div @click="onClicUser" class="user">
       <span>未登录</span>
       <!-- <van-image
