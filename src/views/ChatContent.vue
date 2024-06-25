@@ -2,7 +2,7 @@
 import { ref } from "vue";
 
 const source = ref(`
-选择排序（Selection Sort）是一种简单的排序算法，工作原理是每次从未排序的部分中选出最小的元素，并将其移到已排序部分的末尾。下面是用Python实现的选择排序算法： 
+选择排序（Selection Sort）是一种简单的排序算法，工作原理是每次从未排序的部分中选出最小的元素，并将其移到已排序部分的末尾。下面是用Python实现的选择排序算法：
 <br>
 \`\`\`python
 def selection_sort(arr):
@@ -41,8 +41,9 @@ print("已排序数组:", arr)
     <ChatFrame
       role="user"
       :time="new Date().toLocaleString()"
-      source="给我用js写一个add函数给我用js写一个add函数给我用js写一个add函数给我用js写一个add函数给我用js写一个add函数给我用js写一个add函数给我用js写一个add函数"
+      source="用python写一个选择排序"
     ></ChatFrame>
+
     <ChatFrame
       role="assistant"
       :time="new Date().toLocaleString()"
