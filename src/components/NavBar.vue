@@ -1,11 +1,19 @@
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 let show = ref(false);
 let offset = ref({ x: -1, y: innerHeight - 200 });
 
 function onClicUser() {
   show.value = true;
+}
+
+function goLogin() {
+  show.value = false;
+  router.push("/user");
 }
 </script>
 
@@ -29,13 +37,13 @@ function onClicUser() {
     style="width: 60%; height: 100vh; background-color: #f2f3f5"
   >
     <div class="user-info">
-      <van-image
+      <!-- <van-image
         round
         width="60px"
         height="60px"
         src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-      />
-      <h6>XiaoYan</h6>
+      /> -->
+      <h6 @click="goLogin">未登录</h6>
     </div>
 
     <van-cell-group inset style="margin-top: 20px">

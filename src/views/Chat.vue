@@ -12,6 +12,8 @@ const params = reactive({
   model: config.defaultMode,
 });
 
+const source = ref(``);
+
 /** 模型 */
 let showSelectorMode = ref(false);
 function getMode(modeValue) {
@@ -22,7 +24,23 @@ function getMode(modeValue) {
 function send(sendValue) {
   params.content = sendValue;
 
-  console.log(params);
+  const eventSource = new EventSource("http://localhost:8000/chat/index", {
+    withCredentials: true,
+  });
+
+  eventSource.onmessage = function (event) {
+    if (event.data === "```") {
+      const n = "```";
+      source.value += n;
+    } else {
+      source.value += event.data;
+    }
+    if (event.data === "None") eventSource.close();
+  };
+
+  eventSource.onerror = function (error) {
+    console.log(`连接错误`, error);
+  };
 }
 </script>
 
@@ -40,7 +58,7 @@ function send(sendValue) {
     <ChatNavBar></ChatNavBar>
 
     <!-- start -->
-    <ChatContent></ChatContent>
+    <ChatContent :source="source"></ChatContent>
 
     <ChatInput @on-send="send" v-model="params.model"></ChatInput>
     <!-- end -->
